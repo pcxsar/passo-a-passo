@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Passo a Passo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b8b;
+            --primary-dark: #ff4d73;
+            --secondary: #6a5af9;
+            --secondary-light: #7c70fa;
+            --accent: #ffd166;
+            --accent-light: #ffe08a;
+            --dark: #0f0b1e;
+            --dark-light: #1a1630;
+            --light: #f8f9fa;
+            --light-gray: #e0e0e0;
+            --success: #4ecdc4;
+            --success-light: #6bd9d2;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-light: linear-gradient(135deg, var(--primary-dark), var(--secondary-light));
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            --shadow-light: 0 10px 30px rgba(255, 107, 139, 0.2);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 5% 15%, rgba(255, 107, 139, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 95% 85%, rgba(106, 90, 249, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(255, 209, 102, 0.05) 0%, transparent 50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Animações */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 139, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 139, 0.6); }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideIn 0.8s ease;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s ease;
+        }
+
+        .logo:hover .logo-text::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--light-gray);
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .tagline::before, .tagline::after {
+            content: "❧";
+            color: var(--primary);
+            font-size: 1.5rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .tagline::before {
+            left: 0;
+        }
+
+        .tagline::after {
+            right: 0;
+        }
+
+        .form-container {
+            background-color: var(--dark-light);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.8s ease 0.2s both;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient);
+        }
+
+        .form-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 139, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(106, 90, 249, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .form-step {
+            display: none;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.6s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+        }
+
+        .step-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .step-counter {
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-counter .current {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .step-counter .total {
+            color: var(--light-gray);
+        }
+
+        .step-progress {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 25px 0 40px;
+            overflow: hidden;
+        }
+
+        .step-progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transform: translateX(-100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 18px 20px;
+            background-color: rgba(255, 255, 255, 0.07);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(255, 107, 139, 0.2);
+        }
+
+        .form-control:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .option-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 22px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card:hover {
+            background-color: rgba(255, 107, 139, 0.1);
+            border-color: rgba(255, 107, 139, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .option-card.selected {
+            background-color: rgba(255, 107, 139, 0.15);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-light);
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--primary);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .option-card.selected .option-icon {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .option-text {
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkbox-item:hover {
+            background-color: rgba(255, 107, 139, 0.1);
+        }
+
+        .checkbox-item input {
+            margin-right: 15px;
+            width: 22px;
+            height: 22px;
+            accent-color: var(--primary);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            padding: 16px 35px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .btn-prev {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--light-gray);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-prev:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            transform: translateX(-5px);
+        }
+
+        .btn-next, .btn-submit {
+            background: var(--gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-next:hover, .btn-submit:hover {
+            background: var(--gradient-light);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-light);
+            animation: glow 2s infinite;
+        }
+
+        .btn-next:disabled, .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-icon {
+            font-size: 1.2rem;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            font-size: 1.8rem;
+            color: var(--primary);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 15%; right: 10%; animation-delay: 1s; }
+        .floating-element:nth-child(3) { bottom: 25%; left: 8%; animation-delay: 2s; }
+        .floating-element:nth-child(4) { bottom: 15%; right: 7%; animation-delay: 3s; }
+        .floating-element:nth-child(5) { top: 40%; left: 15%; animation-delay: 4s; }
+        .floating-element:nth-child(6) { top: 60%; right: 20%; animation-delay: 5s; }
+
+        .completion-message {
+            text-align: center;
+            padding: 60px 40px;
+            display: none;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.8s ease;
+        }
+
+        .completion-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            margin: 0 auto 30px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .completion-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .completion-text {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .validation-error {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: var(--transition);
+        }
+
+        .validation-error.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .character-counter {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            margin-top: 5px;
+        }
+
+        .character-counter.near-limit {
+            color: var(--accent);
+        }
+
+        .character-counter.at-limit {
+            color: #ff6b6b;
+        }
+
+        /* Estilo para a pergunta especial */
+        .special-question-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .special-question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            line-height: 1.4;
+            margin-bottom: 40px;
+            color: var(--light);
+            font-weight: 500;
+        }
+
+        .special-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .special-option {
+            padding: 25px 50px;
+            border-radius: 16px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 180px;
+            text-align: center;
+            border: 3px solid transparent;
+        }
+
+        .special-option.yes {
+            background: linear-gradient(135deg, var(--success), var(--success-light));
+            color: white;
+        }
+
+        .special-option.no {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .special-option.yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(78, 205, 196, 0.4);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .special-option.no:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .question-separator {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .question-separator::after {
+            content: '❦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--dark-light);
+            padding: 0 20px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .form-container {
+                padding: 40px 30px;
+            }
+            
+            .logo-text {
+                font-size: 2.5rem;
+            }
+            
+            .step-title {
+                font-size: 1.8rem;
+            }
+            
+            .question-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .special-question-text {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .logo-text {
+                font-size: 2.2rem;
+            }
+            
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .btn {
+                padding: 14px 25px;
+                min-width: 140px;
+                font-size: 1rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-prev, .btn-next, .btn-submit {
+                width: 100%;
+            }
+            
+            .special-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .special-option {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+                padding: 0 30px;
+            }
+            
+            .step-title {
+                font-size: 1.6rem;
+            }
+            
+            .option-card {
+                padding: 18px;
+            }
+            
+            .option-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .special-question-text {
+                font-size: 1.7rem;
+            }
+            
+            .special-option {
+                padding: 20px 30px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="logo-text">Caminho do Coração</div>
+            </div>
+            <p class="tagline">Cada passo nos aproxima mais, cada resposta nos une mais profundamente</p>
+        </div>
+        
+        <div class="form-container">
+            <!-- Elementos flutuantes decorativos -->
+            <div class="floating-elements">
+                <div class="floating-element"><i class="fas fa-heart"></i></div>
+                <div class="floating-element"><i class="fas fa-star"></i></div>
+                <div class="floating-element"><i class="fas fa-sparkles"></i></div>
+                <div class="floating-element"><i class="fas fa-moon"></i></div>
+                <div class="floating-element"><i class="fas fa-sun"></i></div>
+                <div class="floating-element"><i class="fas fa-feather-alt"></i></div>
+            </div>
+            
+            <!-- Barra de progresso -->
+            <div class="step-progress">
+                <div class="step-progress-fill" id="progressFill"></div>
+            </div>
+            
+            <!-- Step 1: Informações Pessoais -->
+            <div class="form-step active" id="step1">
+                <div class="step-header">
+                    <h2 class="step-title">Quem é você?</h2>
+                    <div class="step-counter">
+                        <span class="current">1</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Seu nome completo</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="name" class="form-control" placeholder="Digite seu nome completo">
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="validation-error" id="nameError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, informe seu nome completo</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="birthdate">Data de nascimento</label>
+                    <div class="input-with-icon">
+                        <input type="date" id="birthdate" class="form-control">
+                        <div class="input-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                    <div class="validation-error" id="birthdateError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, informe sua data de nascimento</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" maxlength="14">
+                        <div class="input-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                    </div>
+                    <div class="validation-error" id="cpfError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, informe um CPF válido (11 dígitos)</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" disabled>
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next1">
+                        Continuar <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Perguntas sobre personalidade -->
+            <div class="form-step" id="step2">
+                <div class="step-header">
+                    <h2 class="step-title">Sua Essência</h2>
+                    <div class="step-counter">
+                        <span class="current">2</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Qual destes lugares você mais gostaria de visitar?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="personality" value="romantic">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="option-text">Tailândia</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="personality" value="adventurous">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-mountain"></i>
+                                </div>
+                                <div class="option-text">Paris</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="personality" value="practical">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div class="option-text">Estados Unidos</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="personality" value="dreamer">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="option-text">Japão</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="personalityError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hobby">Qual é a sua paixão? (hobby favorito)</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="hobby" class="form-control" placeholder="Ex: Fotografia, cozinhar, viajar, música...">
+                        <div class="input-icon">
+                            <i class="fas fa-guitar"></i>
+                        </div>
+                    </div>
+                    <div class="validation-error" id="hobbyError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, informe seu hobby favorito</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev2">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next2">
+                        Continuar <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Estilo de vida -->
+            <div class="form-step" id="step3">
+                <div class="step-header">
+                    <h2 class="step-title">Estilo de Vida</h2>
+                    <div class="step-counter">
+                        <span class="current">3</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Como você prefere passar seu tempo livre?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="freeTime" value="home">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="option-text">Em casa, relaxando com filmes ou livros</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="freeTime" value="friends">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="option-text">Com amigos, socializando e saindo</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="freeTime" value="nature">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-tree"></i>
+                                </div>
+                                <div class="option-text">Em contato com a natureza, caminhando ou viajando</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="freeTime" value="learning">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="option-text">Aprendendo algo novo, cursos ou workshops</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="freeTimeError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="question-separator"></div>
+                
+                <div class="form-group">
+                    <label>Qual destes ambientes você mais aprecia?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="environment" value="urban">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <div class="option-text">Ambiente urbano, com movimento e agitação</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="environment" value="nature">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                                <div class="option-text">Ambiente natural, tranquilo e sereno</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="environment" value="cozy">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-couch"></i>
+                                </div>
+                                <div class="option-text">Ambiente aconchegante e familiar</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="environment" value="cultural">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-theater-masks"></i>
+                                </div>
+                                <div class="option-text">Ambiente cultural, com arte e eventos</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="environmentError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev3">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next3">
+                        Continuar <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 4: Preferências românticas -->
+            <div class="form-step" id="step4">
+                <div class="step-header">
+                    <h2 class="step-title">Romance Ideal</h2>
+                    <div class="step-counter">
+                        <span class="current">4</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Qual desses momentos você considera mais romântico?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="romanticMoment" value="sunset">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <div class="option-text">Assistir ao pôr do sol em um lugar especial</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="romanticMoment" value="dinner">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                                <div class="option-text">Um jantar à luz de velas, só nós dois</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="romanticMoment" value="travel">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-plane"></i>
+                                </div>
+                                <div class="option-text">Uma viagem surpresa para um destino desconhecido</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="romanticMoment" value="home">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-film"></i>
+                                </div>
+                                <div class="option-text">Um filme aconchegante em casa, com pipoca</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="romanticMomentError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="question-separator"></div>
+                
+                <div class="form-group">
+                    <label>Qual destas formas de comunicação você mais valoriza?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="communication" value="talking">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="option-text">Conversas profundas e olho no olho</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="communication" value="messages">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="option-text">Mensagens carinhosas ao longo do dia</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="communication" value="gestures">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-hands-helping"></i>
+                                </div>
+                                <div class="option-text">Gestos e ações que demonstram cuidado</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="communication" value="qualityTime">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="option-text">Tempo de qualidade juntos, sem distrações</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="communicationError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev4">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next4">
+                        Continuar <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 5: Valores relacionais -->
+            <div class="form-step" id="step5">
+                <div class="step-header">
+                    <h2 class="step-title">Valores Essenciais</h2>
+                    <div class="step-counter">
+                        <span class="current">5</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Selecione as 3 coisas que mais valoriza em um relacionamento:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="communication">
+                            Comunicação aberta e honesta
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="trust">
+                            Confiança mútua e lealdade
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="adventure">
+                            Aventuras e novas experiências juntos
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="support">
+                            Apoio incondicional nos sonhos
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="respect">
+                            Respeito pela individualidade
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="humor">
+                            Bom humor e leveza no dia a dia
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="intimacy">
+                            Intimidade emocional e física
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="relationshipValues" value="growth">
+                            Crescimento pessoal e como casal
+                        </label>
+                    </div>
+                    <div class="validation-error" id="valuesError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione pelo menos 3 valores</span>
+                    </div>
+                </div>
+                
+                <div class="question-separator"></div>
+                
+                <div class="form-group">
+                    <label>Como você lidaria com conflitos no relacionamento?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="conflict" value="talk">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-comment-medical"></i>
+                                </div>
+                                <div class="option-text">Conversamos calmamente até resolver</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="conflict" value="time">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                                <div class="option-text">Preciso de um tempo para processar antes de conversar</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="conflict" value="humor">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-laugh-beam"></i>
+                                </div>
+                                <div class="option-text">Tento aliviar a tensão com humor</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="conflict" value="listen">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-ear-listen"></i>
+                                </div>
+                                <div class="option-text">Foco em ouvir e entender o outro lado</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="conflictError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev5">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next5">
+                        Continuar <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 6: Visão de futuro -->
+            <div class="form-step" id="step6">
+                <div class="step-header">
+                    <h2 class="step-title">Visão de Futuro</h2>
+                    <div class="step-counter">
+                        <span class="current">6</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Como você imagina um relacionamento ideal daqui a 5 anos?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="futureVision" value="family">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-home-heart"></i>
+                                </div>
+                                <div class="option-text">Construindo uma família e um lar juntos</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="futureVision" value="growth">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <div class="option-text">Crescendo individualmente e como casal</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="futureVision" value="adventure">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-globe-americas"></i>
+                                </div>
+                                <div class="option-text">Explorando o mundo e vivendo aventuras</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="futureVision" value="stability">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="option-text">Estabilidade emocional e financeira</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="futureVisionError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="question-separator"></div>
+                
+                <div class="form-group">
+                    <label>Qual destas metas é mais importante para você atualmente?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="currentGoal" value="career">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="option-text">Crescimento profissional e carreira</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="currentGoal" value="relationships">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="option-text">Construir relacionamentos significativos</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="currentGoal" value="self">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <div class="option-text">Autoconhecimento e desenvolvimento pessoal</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="currentGoal" value="balance">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <div class="option-text">Equilíbrio entre todas as áreas da vida</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="currentGoalError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev6">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next6">
+                        Continuar <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 7: Detalhes pessoais adicionais -->
+            <div class="form-step" id="step7">
+                <div class="step-header">
+                    <h2 class="step-title">Toques Finais</h2>
+                    <div class="step-counter">
+                        <span class="current">7</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="music">Qual tipo de música toca seu coração?</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="music" class="form-control" placeholder="Ex: MPB, rock, jazz, clássica...">
+                        <div class="input-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="movie">Qual filme ou série te emocionou recentemente?</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="movie" class="form-control" placeholder="Compartilhe uma recomendação">
+                        <div class="input-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question-separator"></div>
+                
+                <div class="form-group">
+                    <label>Você acredita em amor à primeira vista?</label>
+                    <div class="question-grid">
+                        <label class="option-card">
+                            <input type="radio" name="loveAtFirstSight" value="yes">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <div class="option-text">Sim, acredito na conexão instantânea</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="loveAtFirstSight" value="no">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-history"></i>
+                                </div>
+                                <div class="option-text">Não, o amor se constrói com o tempo</div>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="loveAtFirstSight" value="maybe">
+                            <div class="option-content">
+                                <div class="option-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="option-text">Talvez, depende da situação</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="validation-error" id="loveError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, selecione uma opção</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev7">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next7">
+                        Continuar <i class="fas fa-arrow-right btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 8: Mensagem final -->
+            <div class="form-step" id="step8">
+                <div class="step-header">
+                    <h2 class="step-title">Mensagem do Coração</h2>
+                    <div class="step-counter">
+                        <span class="current">8</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Deixe uma mensagem especial (opcional)</label>
+                    <textarea id="message" class="form-control" rows="6" placeholder="Escreva algo do coração... O que você espera encontrar? O que tem a oferecer?"></textarea>
+                    <div class="character-counter" id="messageCounter">
+                        <span id="messageChars">0</span>/500 caracteres
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Seu e-mail para receber uma surpresa especial</label>
+                    <div class="input-with-icon">
+                        <input type="email" id="email" class="form-control" placeholder="seu.email@exemplo.com">
+                        <div class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="validation-error" id="emailError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, informe um e-mail válido</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Telefone para contato (opcional)</label>
+                    <div class="input-with-icon">
+                        <input type="tel" id="phone" class="form-control" placeholder="(11) 99999-9999">
+                        <div class="input-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev8">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-next" id="next8">
+                        Última Pergunta <i class="fas fa-heart btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Step 9: Pergunta Especial Final -->
+            <div class="form-step" id="step9">
+                <div class="step-header">
+                    <h2 class="step-title">O Momento Decisivo</h2>
+                    <div class="step-counter">
+                        <span class="current">9</span>
+                        <span class="total">/ 9</span>
+                        <span>Passos</span>
+                    </div>
+                </div>
+                
+                <div class="special-question-container">
+                    <div class="special-question-text">
+                        E se tudo isso pudesse começar agora…<br>
+                        você aceita viver tudo isso ao meu lado?
+                    </div>
+                    
+                    <div class="special-options">
+                        <div class="special-option yes" id="specialYes">
+                            <i class="fas fa-heart"></i> SIM
+                        </div>
+                        <div class="special-option no" id="specialNo">
+                            <i class="fas fa-times"></i> NÃO
+                        </div>
+                    </div>
+                    
+                    <div class="validation-error" id="specialQuestionError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, responda esta pergunta especial</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-prev" id="prev9">
+                        <i class="fas fa-arrow-left btn-icon"></i> Voltar
+                    </button>
+                    <button class="btn btn-submit" id="submit">
+                        Finalizar Jornada <i class="fas fa-heart btn-icon"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mensagem de conclusão -->
+            <div class="completion-message" id="completionMessage">
+                <div class="completion-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="completion-title">Jornada do Coração Completa!</h2>
+                <p class="completion-text">Obrigado por compartilhar tanto de você conosco. Cada resposta foi um passo em direção a algo especial. Em breve você receberá uma surpresa única no e-mail fornecido.</p>
+                <p class="completion-text">Lembre-se: o amor é uma jornada, não um destino. E você acaba de dar um passo importante nessa direção.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos DOM
+        const steps = document.querySelectorAll('.form-step');
+        const progressFill = document.getElementById('progressFill');
+        const nextButtons = document.querySelectorAll('.btn-next');
+        const prevButtons = document.querySelectorAll('.btn-prev');
+        const submitButton = document.getElementById('submit');
+        const completionMessage = document.getElementById('completionMessage');
+        const messageTextarea = document.getElementById('message');
+        const messageCounter = document.getElementById('messageCounter');
+        const messageChars = document.getElementById('messageChars');
+        const specialYes = document.getElementById('specialYes');
+        const specialNo = document.getElementById('specialNo');
+        
+        let currentStep = 0;
+        const totalSteps = steps.length;
+        let specialAnswer = null;
+        
+        // Formatação do CPF
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Permitir até 11 dígitos
+            if (value.length > 11) {
+                value = value.substring(0, 11);
+            }
+            
+            // Aplicar formatação
+            if (value.length > 3 && value.length <= 6) {
+                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
+            } else if (value.length > 6 && value.length <= 9) {
+                value = value.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+            } else if (value.length > 9) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Formatação do telefone
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 11) {
+                value = value.substring(0, 11);
+            }
+            
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d+)/, '($1) $2');
+            } else if (value.length > 0) {
+                value = value.replace(/^(\d*)/, '($1');
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Contador de caracteres para a mensagem
+        messageTextarea.addEventListener('input', function() {
+            const length = this.value.length;
+            messageChars.textContent = length;
+            
+            // Atualizar classe baseada no comprimento
+            if (length > 450) {
+                messageCounter.classList.add('at-limit');
+                messageCounter.classList.remove('near-limit');
+            } else if (length > 400) {
+                messageCounter.classList.add('near-limit');
+                messageCounter.classList.remove('at-limit');
+            } else {
+                messageCounter.classList.remove('near-limit', 'at-limit');
+            }
+            
+            // Limitar a 500 caracteres
+            if (length > 500) {
+                this.value = this.value.substring(0, 500);
+                messageChars.textContent = 500;
+            }
+        });
+        
+        // Seleção visual para opções de cartão
+        document.querySelectorAll('.option-card').forEach(card => {
+            const input = card.querySelector('input');
+            
+            // Marcar cartão quando o input for selecionado
+            input.addEventListener('change', function() {
+                // Remover seleção apenas dos cartões do mesmo grupo
+                const groupName = this.getAttribute('name');
+                document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(input => {
+                    input.closest('.option-card').classList.remove('selected');
+                });
+                
+                if (this.checked) {
+                    card.classList.add('selected');
+                }
+            });
+            
+            // Clicar no cartão também marca o input
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'INPUT') {
+                    input.checked = true;
+                    const groupName = input.getAttribute('name');
+                    document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(input => {
+                        input.closest('.option-card').classList.remove('selected');
+                    });
+                    card.classList.add('selected');
+                    triggerInputEvent(input);
+                }
+            });
+        });
+        
+        // Handler para a pergunta especial
+        specialYes.addEventListener('click', function() {
+            specialAnswer = 'yes';
+            specialYes.classList.add('selected');
+            specialNo.classList.remove('selected');
+            hideError('specialQuestionError');
+        });
+        
+        specialNo.addEventListener('click', function() {
+            specialAnswer = 'no';
+            specialNo.classList.add('selected');
+            specialYes.classList.remove('selected');
+            hideError('specialQuestionError');
+        });
+        
+        // Helper para disparar evento de input
+        function triggerInputEvent(element) {
+            const event = new Event('change', { bubbles: true });
+            element.dispatchEvent(event);
+        }
+        
+        // Atualizar progresso
+        function updateProgress() {
+            const progress = ((currentStep + 1) / totalSteps) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+        
+        // Mostrar erro de validação
+        function showError(elementId, message = '') {
+            const errorElement = document.getElementById(elementId);
+            errorElement.classList.add('show');
+            if (message) {
+                errorElement.querySelector('span').textContent = message;
+            }
+        }
+        
+        // Ocultar erro de validação
+        function hideError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.classList.remove('show');
+        }
+        
+        // Validação por etapa
+        function validateStep(stepIndex) {
+            let isValid = true;
+            
+            switch(stepIndex) {
+                case 0:
+                    const name = document.getElementById('name').value.trim();
+                    const birthdate = document.getElementById('birthdate').value;
+                    const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+                    
+                    if (!name) {
+                        showError('nameError');
+                        isValid = false;
+                    } else {
+                        hideError('nameError');
+                    }
+                    
+                    if (!birthdate) {
+                        showError('birthdateError');
+                        isValid = false;
+                    } else {
+                        hideError('birthdateError');
+                    }
+                    
+                    if (!cpf || cpf.length !== 11) {
+                        showError('cpfError');
+                        isValid = false;
+                    } else {
+                        hideError('cpfError');
+                    }
+                    
+                    break;
+                    
+                case 1:
+                    const personality = document.querySelector('input[name="personality"]:checked');
+                    const hobby = document.getElementById('hobby').value.trim();
+                    
+                    if (!personality) {
+                        showError('personalityError');
+                        isValid = false;
+                    } else {
+                        hideError('personalityError');
+                    }
+                    
+                    if (!hobby) {
+                        showError('hobbyError');
+                        isValid = false;
+                    } else {
+                        hideError('hobbyError');
+                    }
+                    
+                    break;
+                    
+                case 2:
+                    const freeTime = document.querySelector('input[name="freeTime"]:checked');
+                    const environment = document.querySelector('input[name="environment"]:checked');
+                    
+                    if (!freeTime) {
+                        showError('freeTimeError');
+                        isValid = false;
+                    } else {
+                        hideError('freeTimeError');
+                    }
+                    
+                    if (!environment) {
+                        showError('environmentError');
+                        isValid = false;
+                    } else {
+                        hideError('environmentError');
+                    }
+                    
+                    break;
+                    
+                case 3:
+                    const romanticMoment = document.querySelector('input[name="romanticMoment"]:checked');
+                    const communication = document.querySelector('input[name="communication"]:checked');
+                    
+                    if (!romanticMoment) {
+                        showError('romanticMomentError');
+                        isValid = false;
+                    } else {
+                        hideError('romanticMomentError');
+                    }
+                    
+                    if (!communication) {
+                        showError('communicationError');
+                        isValid = false;
+                    } else {
+                        hideError('communicationError');
+                    }
+                    
+                    break;
+                    
+                case 4:
+                    const values = document.querySelectorAll('input[name="relationshipValues"]:checked');
+                    const conflict = document.querySelector('input[name="conflict"]:checked');
+                    
+                    if (values.length < 3) {
+                        showError('valuesError');
+                        isValid = false;
+                    } else {
+                        hideError('valuesError');
+                    }
+                    
+                    if (!conflict) {
+                        showError('conflictError');
+                        isValid = false;
+                    } else {
+                        hideError('conflictError');
+                    }
+                    
+                    break;
+                    
+                case 5:
+                    const futureVision = document.querySelector('input[name="futureVision"]:checked');
+                    const currentGoal = document.querySelector('input[name="currentGoal"]:checked');
+                    
+                    if (!futureVision) {
+                        showError('futureVisionError');
+                        isValid = false;
+                    } else {
+                        hideError('futureVisionError');
+                    }
+                    
+                    if (!currentGoal) {
+                        showError('currentGoalError');
+                        isValid = false;
+                    } else {
+                        hideError('currentGoalError');
+                    }
+                    
+                    break;
+                    
+                case 6:
+                    const loveAtFirstSight = document.querySelector('input[name="loveAtFirstSight"]:checked');
+                    
+                    if (!loveAtFirstSight) {
+                        showError('loveError');
+                        isValid = false;
+                    } else {
+                        hideError('loveError');
+                    }
+                    
+                    break;
+                    
+                case 7:
+                    const email = document.getElementById('email').value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    if (!email || !emailRegex.test(email)) {
+                        showError('emailError');
+                        isValid = false;
+                    } else {
+                        hideError('emailError');
+                    }
+                    
+                    break;
+                    
+                case 8:
+                    if (!specialAnswer) {
+                        showError('specialQuestionError');
+                        isValid = false;
+                    } else {
+                        hideError('specialQuestionError');
+                    }
+                    break;
+            }
+            
+            return isValid;
+        }
+        
+        // Navegar para o próximo passo
+        function goToNextStep() {
+            if (currentStep < totalSteps - 1) {
+                if (!validateStep(currentStep)) {
+                    return;
+                }
+                
+                steps[currentStep].classList.remove('active');
+                currentStep++;
+                steps[currentStep].classList.add('active');
+                updateProgress();
+                
+                // Rolar para o topo do formulário
+                document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Voltar ao passo anterior
+        function goToPrevStep() {
+            if (currentStep > 0) {
+                steps[currentStep].classList.remove('active');
+                currentStep--;
+                steps[currentStep].classList.add('active');
+                updateProgress();
+                
+                // Rolar para o topo do formulário
+                document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Enviar formulário
+        function submitForm() {
+            if (!validateStep(currentStep)) {
+                return;
+            }
+            
+            // Simular envio (em um caso real, enviaria para um servidor)
+            console.log('=== DADOS DO FORMULÁRIO ===');
+            console.log('Nome:', document.getElementById('name').value);
+            console.log('Data de nascimento:', document.getElementById('birthdate').value);
+            console.log('CPF:', document.getElementById('cpf').value);
+            console.log('Personalidade:', document.querySelector('input[name="personality"]:checked')?.value);
+            console.log('Hobby:', document.getElementById('hobby').value);
+            console.log('Tempo livre:', document.querySelector('input[name="freeTime"]:checked')?.value);
+            console.log('Ambiente preferido:', document.querySelector('input[name="environment"]:checked')?.value);
+            console.log('Momento romântico favorito:', document.querySelector('input[name="romanticMoment"]:checked')?.value);
+            console.log('Comunicação preferida:', document.querySelector('input[name="communication"]:checked')?.value);
+            
+            const values = [];
+            document.querySelectorAll('input[name="relationshipValues"]:checked').forEach(cb => {
+                values.push(cb.value);
+            });
+            console.log('Valores no relacionamento:', values);
+            
+            console.log('Como lida com conflitos:', document.querySelector('input[name="conflict"]:checked')?.value);
+            console.log('Visão de futuro:', document.querySelector('input[name="futureVision"]:checked')?.value);
+            console.log('Meta atual:', document.querySelector('input[name="currentGoal"]:checked')?.value);
+            console.log('Música favorita:', document.getElementById('music').value);
+            console.log('Filme/série emocionante:', document.getElementById('movie').value);
+            console.log('Acredita em amor à primeira vista:', document.querySelector('input[name="loveAtFirstSight"]:checked')?.value);
+            console.log('Mensagem:', document.getElementById('message').value);
+            console.log('E-mail:', document.getElementById('email').value);
+            console.log('Telefone:', document.getElementById('phone').value);
+            console.log('Resposta especial:', specialAnswer === 'yes' ? 'SIM' : 'NÃO');
+            console.log('======================');
+            
+            // Mostrar mensagem de conclusão
+            steps.forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            completionMessage.style.display = 'block';
+            progressFill.style.width = '100%';
+            
+            // Rolar para o topo
+            document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Event listeners
+        nextButtons.forEach(button => {
+            button.addEventListener('click', goToNextStep);
+        });
+        
+        prevButtons.forEach(button => {
+            button.addEventListener('click', goToPrevStep);
+        });
+        
+        submitButton.addEventListener('click', submitForm);
+        
+        // Navegação com teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.type !== 'checkbox' && e.target.type !== 'radio') {
+                e.preventDefault();
+                
+                if (currentStep < totalSteps - 1) {
+                    goToNextStep();
+                } else if (currentStep === totalSteps - 1) {
+                    submitForm();
+                }
+            }
+        });
+        
+        // Inicializar
+        updateProgress();
+        
+        // Animar elementos ao carregar
+        setTimeout(() => {
+            document.querySelector('.logo-icon').style.animation = 'float 4s ease-in-out infinite';
+        }, 100);
+    </script>
+</body>
+</html>
