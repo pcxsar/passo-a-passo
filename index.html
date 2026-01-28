@@ -85,6 +85,18 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes photoAnimation {
+            0% { transform: translateX(100%) scale(0.8); opacity: 0; }
+            10% { transform: translateX(0) scale(1); opacity: 1; }
+            90% { transform: translateX(0) scale(1); opacity: 1; }
+            100% { transform: translateX(-100%) scale(0.8); opacity: 0; }
+        }
+
+        @keyframes loadingProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -678,6 +690,105 @@
             font-size: 1.5rem;
         }
 
+        /* Estilos para o loader de fotos - CORRIGIDO */
+        .photo-loader {
+            text-align: center;
+            padding: 60px 40px;
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .photo-loader.active {
+            display: block;
+        }
+
+        .loader-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--light);
+            font-weight: 600;
+        }
+
+        .loader-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 50px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .photo-slideshow {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            margin: 0 auto 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+        }
+
+        .photo-frame.active {
+            opacity: 1;
+            animation: photoAnimation 2s ease-in-out;
+        }
+
+        .photo {
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .loader-progress {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 40px auto 30px;
+            overflow: hidden;
+            max-width: 600px;
+        }
+
+        .loader-progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            border-radius: 4px;
+        }
+
+        .loader-text {
+            font-size: 1.1rem;
+            color: var(--light-gray);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .loader-icon {
+            color: var(--primary);
+            animation: pulse 1.5s infinite;
+        }
+
         @media (max-width: 992px) {
             .form-container {
                 padding: 40px 30px;
@@ -696,6 +807,14 @@
             }
             
             .special-question-text {
+                font-size: 2rem;
+            }
+            
+            .photo-slideshow {
+                height: 350px;
+            }
+            
+            .loader-title {
                 font-size: 2rem;
             }
         }
@@ -745,6 +864,10 @@
                 width: 100%;
                 max-width: 300px;
             }
+            
+            .photo-slideshow {
+                height: 300px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -778,6 +901,18 @@
             .special-option {
                 padding: 20px 30px;
                 font-size: 1.5rem;
+            }
+            
+            .photo-slideshow {
+                height: 250px;
+            }
+            
+            .loader-title {
+                font-size: 1.8rem;
+            }
+            
+            .loader-subtitle {
+                font-size: 1rem;
             }
         }
     </style>
@@ -816,7 +951,7 @@
                     <h2 class="step-title">Dados pessoais</h2>
                     <div class="step-counter">
                         <span class="current">1</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
@@ -879,7 +1014,7 @@
                     <h2 class="step-title">Sua Essência</h2>
                     <div class="step-counter">
                         <span class="current">2</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
@@ -888,7 +1023,7 @@
                     <label>Qual destes lugares você mais gostaria de visitar?</label>
                     <div class="question-grid">
                         <label class="option-card">
-                            <input type="radio" name="personality" value="romantic">
+                            <input type="radio" name="travel" value="thailand">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-heart"></i>
@@ -897,7 +1032,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="personality" value="adventurous">
+                            <input type="radio" name="travel" value="paris">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-mountain"></i>
@@ -906,7 +1041,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="personality" value="practical">
+                            <input type="radio" name="travel" value="usa">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-clipboard-check"></i>
@@ -915,7 +1050,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="personality" value="dreamer">
+                            <input type="radio" name="travel" value="japan">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-cloud"></i>
@@ -924,23 +1059,23 @@
                             </div>
                         </label>
                     </div>
-                    <div class="validation-error" id="personalityError">
+                    <div class="validation-error" id="travelError">
                         <i class="fas fa-exclamation-circle"></i>
                         <span>Por favor, selecione uma opção</span>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="hobby">Você tem algum pet? Informe o nome de um deles</label>
+                    <label for="pet">Você tem algum pet? Informe o nome de um deles</label>
                     <div class="input-with-icon">
-                        <input type="text" id="hobby" class="form-control" placeholder="Ex: Fotografia, cozinhar, viajar, música...">
+                        <input type="text" id="pet" class="form-control" placeholder="Ex: Rex, Luna, Thor, Mel...">
                         <div class="input-icon">
-                            <i class="fas fa-guitar"></i>
+                            <i class="fas fa-paw"></i>
                         </div>
                     </div>
-                    <div class="validation-error" id="hobbyError">
+                    <div class="validation-error" id="petError">
                         <i class="fas fa-exclamation-circle"></i>
-                        <span>Por favor, informe seu hobby favorito</span>
+                        <span>Por favor, informe o nome do seu pet</span>
                     </div>
                 </div>
                 
@@ -960,7 +1095,7 @@
                     <h2 class="step-title">Estilo de Vida</h2>
                     <div class="step-counter">
                         <span class="current">3</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
@@ -974,7 +1109,7 @@
                                 <div class="option-icon">
                                     <i class="fas fa-home"></i>
                                 </div>
-                                <div class="option-text">Em casa, relaxando com filmes ou series</div>
+                                <div class="option-text">Em casa, relaxando com filmes ou séries</div>
                             </div>
                         </label>
                         <label class="option-card">
@@ -996,7 +1131,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="freeTime" value="learning">
+                            <input type="radio" name="freeTime" value="people">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-heart"></i>
@@ -1075,7 +1210,7 @@
                     <h2 class="step-title">Romance Ideal</h2>
                     <div class="step-counter">
                         <span class="current">4</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
@@ -1190,7 +1325,7 @@
                     <h2 class="step-title">Valores Essenciais</h2>
                     <div class="step-counter">
                         <span class="current">5</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
@@ -1301,7 +1436,7 @@
                     <h2 class="step-title">Visão de Futuro</h2>
                     <div class="step-counter">
                         <span class="current">6</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
@@ -1358,7 +1493,7 @@
                     <label>O que faz alguém valer a pena todos os dias?</label>
                     <div class="question-grid">
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="career">
+                            <input type="radio" name="worthIt" value="care">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-briefcase"></i>
@@ -1367,7 +1502,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="relationships">
+                            <input type="radio" name="worthIt" value="partnership">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-heart"></i>
@@ -1376,7 +1511,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="self">
+                            <input type="radio" name="worthIt" value="smile">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-user-check"></i>
@@ -1385,7 +1520,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="balance">
+                            <input type="radio" name="worthIt" value="connection">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-balance-scale"></i>
@@ -1394,7 +1529,7 @@
                             </div>
                         </label>
                     </div>
-                    <div class="validation-error" id="currentGoalError">
+                    <div class="validation-error" id="worthItError">
                         <i class="fas fa-exclamation-circle"></i>
                         <span>Por favor, selecione uma opção</span>
                     </div>
@@ -1416,16 +1551,16 @@
                     <h2 class="step-title">Toques Finais</h2>
                     <div class="step-counter">
                         <span class="current">7</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
                 
-                  <div class="form-group">
+                <div class="form-group">
                     <label>O que te faz acreditar que o amor vale o risco?</label>
                     <div class="question-grid">
                         <label class="option-card">
-                            <input type="radio" name="futureVision" value="family">
+                            <input type="radio" name="loveRisk" value="happiness">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-home"></i>
@@ -1434,7 +1569,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="futureVision" value="growth">
+                            <input type="radio" name="loveRisk" value="exchange">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-seedling"></i>
@@ -1443,7 +1578,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="futureVision" value="adventure">
+                            <input type="radio" name="loveRisk" value="moments">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-globe-americas"></i>
@@ -1452,7 +1587,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="futureVision" value="stability">
+                            <input type="radio" name="loveRisk" value="stay">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-shield-alt"></i>
@@ -1461,7 +1596,7 @@
                             </div>
                         </label>
                     </div>
-                    <div class="validation-error" id="futureVisionError">
+                    <div class="validation-error" id="loveRiskError">
                         <i class="fas fa-exclamation-circle"></i>
                         <span>Por favor, selecione uma opção</span>
                     </div>
@@ -1473,7 +1608,7 @@
                     <label>O que você espera de alguém que caminha ao seu lado?</label>
                     <div class="question-grid">
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="career">
+                            <input type="radio" name="expectations" value="companionship">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-briefcase"></i>
@@ -1482,7 +1617,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="relationships">
+                            <input type="radio" name="expectations" value="support">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-heart"></i>
@@ -1491,7 +1626,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="self">
+                            <input type="radio" name="expectations" value="growth">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-user-check"></i>
@@ -1500,7 +1635,7 @@
                             </div>
                         </label>
                         <label class="option-card">
-                            <input type="radio" name="currentGoal" value="balance">
+                            <input type="radio" name="expectations" value="loyalty">
                             <div class="option-content">
                                 <div class="option-icon">
                                     <i class="fas fa-balance-scale"></i>
@@ -1509,7 +1644,7 @@
                             </div>
                         </label>
                     </div>
-                    <div class="validation-error" id="currentGoalError">
+                    <div class="validation-error" id="expectationsError">
                         <i class="fas fa-exclamation-circle"></i>
                         <span>Por favor, selecione uma opção</span>
                     </div>
@@ -1531,16 +1666,40 @@
                     <h2 class="step-title">E por fim, deseja ter filhos?</h2>
                     <div class="step-counter">
                         <span class="current">8</span>
-                        <span class="total">/ 9</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="message">Qual seriam o(s) nome(s) dele(s)?</label>
-                    <textarea id="message" class="form-control" rows="6" placeholder="Escreva algo do coração... O que você espera encontrar? O que tem a oferecer?"></textarea>
+                    <label for="childrenNames">Se sim, quais seriam o(s) nome(s) dele(s)?</label>
+                    <textarea id="childrenNames" class="form-control" rows="6" placeholder="Se não deseja ter filhos, pode deixar em branco ou escrever sua opinião..."></textarea>
                     <div class="character-counter" id="messageCounter">
                         <span id="messageChars">0</span>/100 caracteres
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Seu e-mail para receber uma surpresa especial</label>
+                    <div class="input-with-icon">
+                        <input type="email" id="email" class="form-control" placeholder="seu.email@exemplo.com">
+                        <div class="input-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="validation-error" id="emailError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Por favor, informe um e-mail válido</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Telefone para contato (opcional)</label>
+                    <div class="input-with-icon">
+                        <input type="tel" id="phone" class="form-control" placeholder="(11) 99999-9999">
+                        <div class="input-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
                     </div>
                 </div>
                 
@@ -1549,18 +1708,51 @@
                         <i class="fas fa-arrow-left btn-icon"></i> Voltar
                     </button>
                     <button class="btn btn-next" id="next8">
-                        Última Pergunta <i class="fas fa-heart btn-icon"></i>
+                        Ver Surpresa <i class="fas fa-heart btn-icon"></i>
                     </button>
                 </div>
             </div>
             
-            <!-- Step 9: Pergunta Especial Final -->
-            <div class="form-step" id="step9">
+            <!-- Step 9: Loader de Fotos -->
+            <div class="photo-loader" id="photoLoader">
+                <div class="loader-title">Revivendo Nossos Momentos...</div>
+                <p class="loader-subtitle">Enquanto preparamos algo especial, reviva alguns dos momentos que nos trouxeram até aqui.</p>
+                
+                <div class="photo-slideshow">
+                    <div class="photo-frame active" id="photo1">
+                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 1" class="photo">
+                    </div>
+                    <div class="photo-frame" id="photo2">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 2" class="photo">
+                    </div>
+                    <div class="photo-frame" id="photo3">
+                        <img src="https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 3" class="photo">
+                    </div>
+                    <div class="photo-frame" id="photo4">
+                        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 4" class="photo">
+                    </div>
+                    <div class="photo-frame" id="photo5">
+                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 5" class="photo">
+                    </div>
+                </div>
+                
+                <div class="loader-progress">
+                    <div class="loader-progress-fill" id="loaderProgress"></div>
+                </div>
+                
+                <div class="loader-text">
+                    <i class="fas fa-heart loader-icon"></i>
+                    <span>Preparando algo especial para você...</span>
+                </div>
+            </div>
+            
+            <!-- Step 10: Pergunta Especial Final -->
+            <div class="form-step" id="step10">
                 <div class="step-header">
                     <h2 class="step-title">Julia Lima, agora responda...</h2>
                     <div class="step-counter">
-                        <span class="current">9</span>
-                        <span class="total">/ 9</span>
+                        <span class="current">10</span>
+                        <span class="total">/ 10</span>
                         <span>Passos</span>
                     </div>
                 </div>
@@ -1587,7 +1779,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <button class="btn btn-prev" id="prev9">
+                    <button class="btn btn-prev" id="prev10">
                         <i class="fas fa-arrow-left btn-icon"></i> Voltar
                     </button>
                     <button class="btn btn-submit" id="submit">
@@ -1611,20 +1803,27 @@
     <script>
         // Elementos DOM
         const steps = document.querySelectorAll('.form-step');
+        const photoLoader = document.getElementById('photoLoader');
         const progressFill = document.getElementById('progressFill');
+        const loaderProgress = document.getElementById('loaderProgress');
+        const photoFrames = document.querySelectorAll('.photo-frame');
         const nextButtons = document.querySelectorAll('.btn-next');
         const prevButtons = document.querySelectorAll('.btn-prev');
         const submitButton = document.getElementById('submit');
         const completionMessage = document.getElementById('completionMessage');
-        const messageTextarea = document.getElementById('message');
+        const messageTextarea = document.getElementById('childrenNames');
         const messageCounter = document.getElementById('messageCounter');
         const messageChars = document.getElementById('messageChars');
         const specialYes = document.getElementById('specialYes');
         const specialNo = document.getElementById('specialNo');
         
         let currentStep = 0;
-        const totalSteps = steps.length;
+        const totalSteps = 10; // Agora temos 10 passos
         let specialAnswer = null;
+        let loaderInterval = null;
+        let loaderTimeout = null;
+        let currentPhotoIndex = 0;
+        let loaderProgressValue = 0;
         
         // Formatação do CPF
         document.getElementById('cpf').addEventListener('input', function(e) {
@@ -1669,27 +1868,29 @@
         });
         
         // Contador de caracteres para a mensagem
-        messageTextarea.addEventListener('input', function() {
-            const length = this.value.length;
-            messageChars.textContent = length;
-            
-            // Atualizar classe baseada no comprimento
-            if (length > 450) {
-                messageCounter.classList.add('at-limit');
-                messageCounter.classList.remove('near-limit');
-            } else if (length > 400) {
-                messageCounter.classList.add('near-limit');
-                messageCounter.classList.remove('at-limit');
-            } else {
-                messageCounter.classList.remove('near-limit', 'at-limit');
-            }
-            
-            // Limitar a 500 caracteres
-            if (length > 500) {
-                this.value = this.value.substring(0, 500);
-                messageChars.textContent = 500;
-            }
-        });
+        if (messageTextarea) {
+            messageTextarea.addEventListener('input', function() {
+                const length = this.value.length;
+                if (messageChars) messageChars.textContent = length;
+                
+                // Atualizar classe baseada no comprimento
+                if (length > 90) {
+                    messageCounter.classList.add('at-limit');
+                    messageCounter.classList.remove('near-limit');
+                } else if (length > 80) {
+                    messageCounter.classList.add('near-limit');
+                    messageCounter.classList.remove('at-limit');
+                } else {
+                    messageCounter.classList.remove('near-limit', 'at-limit');
+                }
+                
+                // Limitar a 100 caracteres
+                if (length > 100) {
+                    this.value = this.value.substring(0, 100);
+                    if (messageChars) messageChars.textContent = 100;
+                }
+            });
+        }
         
         // Seleção visual para opções de cartão
         document.querySelectorAll('.option-card').forEach(card => {
@@ -1752,19 +1953,97 @@
         // Mostrar erro de validação
         function showError(elementId, message = '') {
             const errorElement = document.getElementById(elementId);
-            errorElement.classList.add('show');
-            if (message) {
-                errorElement.querySelector('span').textContent = message;
+            if (errorElement) {
+                errorElement.classList.add('show');
+                if (message) {
+                    errorElement.querySelector('span').textContent = message;
+                }
             }
         }
         
         // Ocultar erro de validação
         function hideError(elementId) {
             const errorElement = document.getElementById(elementId);
-            errorElement.classList.remove('show');
+            if (errorElement) {
+                errorElement.classList.remove('show');
+            }
         }
         
-        // Validação por etapa
+        // Função para controlar o slideshow de fotos
+        function startPhotoSlideshow() {
+            // Resetar variáveis
+            currentPhotoIndex = 0;
+            loaderProgressValue = 0;
+            
+            // Mostrar primeira foto
+            photoFrames.forEach(frame => frame.classList.remove('active'));
+            if (photoFrames[0]) photoFrames[0].classList.add('active');
+            
+            // Resetar barra de progresso
+            if (loaderProgress) loaderProgress.style.width = '0%';
+            
+            // Iniciar intervalo para trocar fotos a cada 2 segundos
+            loaderInterval = setInterval(() => {
+                // Remover classe active de todas as fotos
+                photoFrames.forEach(frame => frame.classList.remove('active'));
+                
+                // Avançar para próxima foto
+                currentPhotoIndex = (currentPhotoIndex + 1) % photoFrames.length;
+                
+                // Adicionar classe active à foto atual
+                if (photoFrames[currentPhotoIndex]) {
+                    photoFrames[currentPhotoIndex].classList.add('active');
+                }
+                
+                // Atualizar barra de progresso
+                loaderProgressValue += 10; // 10% a cada segundo (10 segundos total)
+                if (loaderProgress) {
+                    loaderProgress.style.width = `${loaderProgressValue}%`;
+                }
+                
+            }, 1000); // Trocar foto a cada 1 segundo
+            
+            // Configurar timeout para finalizar o loader após 10 segundos
+            loaderTimeout = setTimeout(() => {
+                stopPhotoSlideshow();
+                goToFinalQuestion();
+            }, 10000); // 10 segundos
+        }
+        
+        // Parar o slideshow
+        function stopPhotoSlideshow() {
+            if (loaderInterval) {
+                clearInterval(loaderInterval);
+                loaderInterval = null;
+            }
+            if (loaderTimeout) {
+                clearTimeout(loaderTimeout);
+                loaderTimeout = null;
+            }
+        }
+        
+        // Ir para a pergunta final após o loader
+        function goToFinalQuestion() {
+            // Esconder loader
+            if (photoLoader) photoLoader.classList.remove('active');
+            
+            // Atualizar passo atual
+            currentStep = 9; // Passo 10 (índice 9)
+            
+            // Mostrar passo final
+            const step10 = document.getElementById('step10');
+            if (step10) {
+                step10.classList.add('active');
+            }
+            
+            // Atualizar barra de progresso
+            updateProgress();
+            
+            // Rolar para o topo
+            document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Validação por etapa - CORRIGIDA
         function validateStep(stepIndex) {
             let isValid = true;
             
@@ -1798,21 +2077,21 @@
                     break;
                     
                 case 1:
-                    const personality = document.querySelector('input[name="personality"]:checked');
-                    const hobby = document.getElementById('hobby').value.trim();
+                    const travel = document.querySelector('input[name="travel"]:checked');
+                    const pet = document.getElementById('pet').value.trim();
                     
-                    if (!personality) {
-                        showError('personalityError');
+                    if (!travel) {
+                        showError('travelError');
                         isValid = false;
                     } else {
-                        hideError('personalityError');
+                        hideError('travelError');
                     }
                     
-                    if (!hobby) {
-                        showError('hobbyError');
+                    if (!pet) {
+                        showError('petError');
                         isValid = false;
                     } else {
-                        hideError('hobbyError');
+                        hideError('petError');
                     }
                     
                     break;
@@ -1879,7 +2158,7 @@
                     
                 case 5:
                     const futureVision = document.querySelector('input[name="futureVision"]:checked');
-                    const currentGoal = document.querySelector('input[name="currentGoal"]:checked');
+                    const worthIt = document.querySelector('input[name="worthIt"]:checked');
                     
                     if (!futureVision) {
                         showError('futureVisionError');
@@ -1888,23 +2167,31 @@
                         hideError('futureVisionError');
                     }
                     
-                    if (!currentGoal) {
-                        showError('currentGoalError');
+                    if (!worthIt) {
+                        showError('worthItError');
                         isValid = false;
                     } else {
-                        hideError('currentGoalError');
+                        hideError('worthItError');
                     }
                     
                     break;
                     
                 case 6:
-                    const loveAtFirstSight = document.querySelector('input[name="loveAtFirstSight"]:checked');
+                    const loveRisk = document.querySelector('input[name="loveRisk"]:checked');
+                    const expectations = document.querySelector('input[name="expectations"]:checked');
                     
-                    if (!loveAtFirstSight) {
-                        showError('loveError');
+                    if (!loveRisk) {
+                        showError('loveRiskError');
                         isValid = false;
                     } else {
-                        hideError('loveError');
+                        hideError('loveRiskError');
+                    }
+                    
+                    if (!expectations) {
+                        showError('expectationsError');
+                        isValid = false;
+                    } else {
+                        hideError('expectationsError');
                     }
                     
                     break;
@@ -1920,9 +2207,15 @@
                         hideError('emailError');
                     }
                     
+                    // O campo de nomes dos filhos é opcional, então não precisa de validação
+                    
                     break;
                     
                 case 8:
+                    // O loader não precisa de validação
+                    break;
+                    
+                case 9:
                     if (!specialAnswer) {
                         showError('specialQuestionError');
                         isValid = false;
@@ -1942,25 +2235,82 @@
                     return;
                 }
                 
+                // Se estamos indo para o passo 8 (loader de fotos)
+                if (currentStep === 7) {
+                    // Esconder passo atual
+                    steps[currentStep].classList.remove('active');
+                    
+                    // Atualizar passo atual
+                    currentStep = 8;
+                    
+                    // Mostrar loader
+                    if (photoLoader) {
+                        photoLoader.classList.add('active');
+                        
+                        // Iniciar slideshow
+                        setTimeout(() => {
+                            startPhotoSlideshow();
+                        }, 100);
+                    }
+                    
+                    // Atualizar barra de progresso
+                    updateProgress();
+                    
+                    // Rolar para o topo
+                    document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
+                
+                // Para outros passos
                 steps[currentStep].classList.remove('active');
                 currentStep++;
                 steps[currentStep].classList.add('active');
                 updateProgress();
                 
-                // Rolar para o topo do formulário
+                // Rolar para o topo
                 document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
             }
         }
         
         // Voltar ao passo anterior
         function goToPrevStep() {
+            // Parar o slideshow se estiver ativo
+            stopPhotoSlideshow();
+            
             if (currentStep > 0) {
-                steps[currentStep].classList.remove('active');
-                currentStep--;
-                steps[currentStep].classList.add('active');
-                updateProgress();
+                // Se estamos no passo 9 (pergunta final)
+                if (currentStep === 9) {
+                    // Esconder passo atual
+                    steps[currentStep].classList.remove('active');
+                    
+                    // Voltar para o loader
+                    currentStep = 8;
+                    if (photoLoader) photoLoader.classList.add('active');
+                    
+                    // Atualizar barra de progresso
+                    updateProgress();
+                }
+                // Se estamos no loader (passo 8)
+                else if (currentStep === 8) {
+                    // Esconder loader
+                    if (photoLoader) photoLoader.classList.remove('active');
+                    
+                    // Voltar para passo anterior
+                    currentStep = 7;
+                    steps[currentStep].classList.add('active');
+                    
+                    // Atualizar barra de progresso
+                    updateProgress();
+                }
+                // Para outros passos
+                else {
+                    steps[currentStep].classList.remove('active');
+                    currentStep--;
+                    steps[currentStep].classList.add('active');
+                    updateProgress();
+                }
                 
-                // Rolar para o topo do formulário
+                // Rolar para o topo
                 document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
             }
         }
@@ -1976,8 +2326,8 @@
             console.log('Nome:', document.getElementById('name').value);
             console.log('Data de nascimento:', document.getElementById('birthdate').value);
             console.log('CPF:', document.getElementById('cpf').value);
-            console.log('Personalidade:', document.querySelector('input[name="personality"]:checked')?.value);
-            console.log('Hobby:', document.getElementById('hobby').value);
+            console.log('Lugar para visitar:', document.querySelector('input[name="travel"]:checked')?.value);
+            console.log('Nome do pet:', document.getElementById('pet').value);
             console.log('Tempo livre:', document.querySelector('input[name="freeTime"]:checked')?.value);
             console.log('Ambiente preferido:', document.querySelector('input[name="environment"]:checked')?.value);
             console.log('Momento romântico favorito:', document.querySelector('input[name="romanticMoment"]:checked')?.value);
@@ -1991,11 +2341,10 @@
             
             console.log('Como lida com conflitos:', document.querySelector('input[name="conflict"]:checked')?.value);
             console.log('Visão de futuro:', document.querySelector('input[name="futureVision"]:checked')?.value);
-            console.log('Meta atual:', document.querySelector('input[name="currentGoal"]:checked')?.value);
-            console.log('Música favorita:', document.getElementById('music').value);
-            console.log('Filme/série emocionante:', document.getElementById('movie').value);
-            console.log('Acredita em amor à primeira vista:', document.querySelector('input[name="loveAtFirstSight"]:checked')?.value);
-            console.log('Mensagem:', document.getElementById('message').value);
+            console.log('O que faz valer a pena:', document.querySelector('input[name="worthIt"]:checked')?.value);
+            console.log('Por que o amor vale o risco:', document.querySelector('input[name="loveRisk"]:checked')?.value);
+            console.log('Expectativas em um relacionamento:', document.querySelector('input[name="expectations"]:checked')?.value);
+            console.log('Nomes dos filhos:', document.getElementById('childrenNames').value);
             console.log('E-mail:', document.getElementById('email').value);
             console.log('Telefone:', document.getElementById('phone').value);
             console.log('Resposta especial:', specialAnswer === 'yes' ? 'SIM' : 'NÃO');
@@ -2005,6 +2354,8 @@
             steps.forEach(step => {
                 step.classList.remove('active');
             });
+            
+            if (photoLoader) photoLoader.classList.remove('active');
             
             completionMessage.style.display = 'block';
             progressFill.style.width = '100%';
