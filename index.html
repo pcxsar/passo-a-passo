@@ -85,11 +85,13 @@
             100% { transform: scale(1); }
         }
 
+        /* ANIMAÇÃO DE SLIDESHOW MAIS LENTA - AJUSTADA */
         @keyframes photoAnimation {
-            0% { transform: translateX(100%) scale(0.8); opacity: 0; }
+            0% { transform: translateX(100%) scale(0.95); opacity: 0; }
             10% { transform: translateX(0) scale(1); opacity: 1; }
-            90% { transform: translateX(0) scale(1); opacity: 1; }
-            100% { transform: translateX(-100%) scale(0.8); opacity: 0; }
+            80% { transform: translateX(0) scale(1); opacity: 1; }
+            90% { transform: translateX(-100%) scale(0.95); opacity: 0; }
+            100% { transform: translateX(-100%) scale(0.95); opacity: 0; }
         }
 
         @keyframes loadingProgress {
@@ -690,7 +692,7 @@
             font-size: 1.5rem;
         }
 
-        /* Estilos para o loader de fotos - CORRIGIDO */
+        /* Estilos para o loader de fotos - AJUSTADO */
         .photo-loader {
             text-align: center;
             padding: 60px 40px;
@@ -743,10 +745,18 @@
             opacity: 0;
         }
 
+        /* ANIMAÇÃO MAIS LENTA - 4 segundos por imagem */
         .photo-frame.active {
             opacity: 1;
-            animation: photoAnimation 2s ease-in-out;
+            animation: photoAnimation 20s linear infinite;
         }
+
+        /* Atribuir atrasos diferentes para cada imagem */
+        .photo-frame:nth-child(1).active { animation-delay: 0s; }
+        .photo-frame:nth-child(2).active { animation-delay: 4s; }
+        .photo-frame:nth-child(3).active { animation-delay: 8s; }
+        .photo-frame:nth-child(4).active { animation-delay: 12s; }
+        .photo-frame:nth-child(5).active { animation-delay: 16s; }
 
         .photo {
             width: 90%;
@@ -772,6 +782,7 @@
             background: var(--gradient);
             width: 0%;
             border-radius: 4px;
+            transition: width 0.1s linear;
         }
 
         .loader-text {
@@ -789,6 +800,7 @@
             animation: pulse 1.5s infinite;
         }
 
+        /* Estilos para dispositivos móveis */
         @media (max-width: 992px) {
             .form-container {
                 padding: 40px 30px;
@@ -913,6 +925,15 @@
             
             .loader-subtitle {
                 font-size: 1rem;
+            }
+            
+            /* Ajustar animação para dispositivos móveis */
+            @keyframes photoAnimation {
+                0% { transform: translateX(100%) scale(0.95); opacity: 0; }
+                5% { transform: translateX(0) scale(1); opacity: 1; }
+                85% { transform: translateX(0) scale(1); opacity: 1; }
+                95% { transform: translateX(-100%) scale(0.95); opacity: 0; }
+                100% { transform: translateX(-100%) scale(0.95); opacity: 0; }
             }
         }
     </style>
@@ -1713,26 +1734,26 @@
                 </div>
             </div>
             
-            <!-- Step 9: Loader de Fotos -->
+            <!-- Step 9: Loader de Fotos - AJUSTADO -->
             <div class="photo-loader" id="photoLoader">
-                <div class="loader-title">Revivendo Nossos Momentos...</div>
-                <p class="loader-subtitle">Enquanto preparamos algo especial, reviva alguns dos momentos que nos trouxeram até aqui.</p>
+                <div class="loader-title">Procurando o parceiro ideal...</div>
+                <p class="loader-subtitle">Reunímos a suas informações e encontraremos o homem perfeito para sua vida.</p>
                 
                 <div class="photo-slideshow">
                     <div class="photo-frame active" id="photo1">
-                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 1" class="photo">
+                        <img src="1.png" alt="Momento 1" class="photo">
                     </div>
                     <div class="photo-frame" id="photo2">
-                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 2" class="photo">
+                        <img src="2.png" alt="Momento 2" class="photo">
                     </div>
                     <div class="photo-frame" id="photo3">
-                        <img src="https://images.unsplash.com/photo-1529254479751-fbacb4c7a587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 3" class="photo">
+                        <img src="3.png" alt="Momento 3" class="photo">
                     </div>
                     <div class="photo-frame" id="photo4">
-                        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 4" class="photo">
+                        <img src="4.png" alt="Momento 4" class="photo">
                     </div>
                     <div class="photo-frame" id="photo5">
-                        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Momento 5" class="photo">
+                        <img src="5.png" alt="Momento 5" class="photo">
                     </div>
                 </div>
                 
@@ -1742,7 +1763,7 @@
                 
                 <div class="loader-text">
                     <i class="fas fa-heart loader-icon"></i>
-                    <span>Preparando algo especial para você...</span>
+                    <span>Preste bastante atenção...</span>
                 </div>
             </div>
             
@@ -1793,8 +1814,8 @@
                 <div class="completion-icon">
                     <i class="fas fa-heart"></i>
                 </div>
-                <h2 class="completion-title">Jornada do Coração Completa!</h2>
-                <p class="completion-text">Obrigado por compartilhar tanto de você conosco. Cada resposta foi um passo em direção a algo especial. Em breve você receberá uma surpresa única no e-mail fornecido.</p>
+                <h2 class="completion-title">Pronto! Agora você é minha para sempre.</h2>
+                <p class="completion-text">Vamos para a Tailândia juntos, ter o Tonho e a Cecê, e ser muito felizes, um ao lado do outro.</p>
                 <p class="completion-text">Lembre-se: o amor é uma jornada, não um destino. E você acaba de dar um passo importante nessa direção.</p>
             </div>
         </div>
@@ -1818,23 +1839,26 @@
         const specialNo = document.getElementById('specialNo');
         
         let currentStep = 0;
-        const totalSteps = 10; // Agora temos 10 passos
+        const totalSteps = 10;
         let specialAnswer = null;
         let loaderInterval = null;
         let loaderTimeout = null;
         let currentPhotoIndex = 0;
         let loaderProgressValue = 0;
         
+        // Configurações ajustadas para slideshow mais lento
+        const totalDuration = 20000; // 20 segundos total
+        const imageDuration = 4000; // 4 segundos por imagem
+        const totalImages = 5;
+        
         // Formatação do CPF
         document.getElementById('cpf').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             
-            // Permitir até 11 dígitos
             if (value.length > 11) {
                 value = value.substring(0, 11);
             }
             
-            // Aplicar formatação
             if (value.length > 3 && value.length <= 6) {
                 value = value.replace(/(\d{3})(\d+)/, '$1.$2');
             } else if (value.length > 6 && value.length <= 9) {
@@ -1873,7 +1897,6 @@
                 const length = this.value.length;
                 if (messageChars) messageChars.textContent = length;
                 
-                // Atualizar classe baseada no comprimento
                 if (length > 90) {
                     messageCounter.classList.add('at-limit');
                     messageCounter.classList.remove('near-limit');
@@ -1884,7 +1907,6 @@
                     messageCounter.classList.remove('near-limit', 'at-limit');
                 }
                 
-                // Limitar a 100 caracteres
                 if (length > 100) {
                     this.value = this.value.substring(0, 100);
                     if (messageChars) messageChars.textContent = 100;
@@ -1896,9 +1918,7 @@
         document.querySelectorAll('.option-card').forEach(card => {
             const input = card.querySelector('input');
             
-            // Marcar cartão quando o input for selecionado
             input.addEventListener('change', function() {
-                // Remover seleção apenas dos cartões do mesmo grupo
                 const groupName = this.getAttribute('name');
                 document.querySelectorAll(`.option-card input[name="${groupName}"]`).forEach(input => {
                     input.closest('.option-card').classList.remove('selected');
@@ -1909,7 +1929,6 @@
                 }
             });
             
-            // Clicar no cartão também marca o input
             card.addEventListener('click', function(e) {
                 if (e.target.tagName !== 'INPUT') {
                     input.checked = true;
@@ -1969,45 +1988,63 @@
             }
         }
         
-        // Função para controlar o slideshow de fotos
+        // Função para controlar o slideshow de fotos - AJUSTADA
         function startPhotoSlideshow() {
             // Resetar variáveis
             currentPhotoIndex = 0;
             loaderProgressValue = 0;
             
-            // Mostrar primeira foto
-            photoFrames.forEach(frame => frame.classList.remove('active'));
-            if (photoFrames[0]) photoFrames[0].classList.add('active');
+            // Mostrar todas as fotos como inativas inicialmente
+            photoFrames.forEach(frame => {
+                frame.classList.remove('active');
+            });
+            
+            // Ativar a primeira foto
+            if (photoFrames[0]) {
+                photoFrames[0].classList.add('active');
+            }
             
             // Resetar barra de progresso
-            if (loaderProgress) loaderProgress.style.width = '0%';
+            if (loaderProgress) {
+                loaderProgress.style.width = '0%';
+            }
             
-            // Iniciar intervalo para trocar fotos a cada 2 segundos
+            // Iniciar intervalo para atualizar progresso (a cada 100ms)
             loaderInterval = setInterval(() => {
-                // Remover classe active de todas as fotos
-                photoFrames.forEach(frame => frame.classList.remove('active'));
+                // Atualizar progresso
+                loaderProgressValue += 100; // incremento por intervalo
+                const progressPercent = Math.min((loaderProgressValue / totalDuration) * 100, 100);
                 
-                // Avançar para próxima foto
-                currentPhotoIndex = (currentPhotoIndex + 1) % photoFrames.length;
-                
-                // Adicionar classe active à foto atual
-                if (photoFrames[currentPhotoIndex]) {
-                    photoFrames[currentPhotoIndex].classList.add('active');
-                }
-                
-                // Atualizar barra de progresso
-                loaderProgressValue += 10; // 10% a cada segundo (10 segundos total)
                 if (loaderProgress) {
-                    loaderProgress.style.width = `${loaderProgressValue}%`;
+                    loaderProgress.style.width = `${progressPercent}%`;
                 }
                 
-            }, 1000); // Trocar foto a cada 1 segundo
+                // Determinar qual imagem deve estar ativa baseado no tempo
+                const currentTime = loaderProgressValue;
+                const activeImageIndex = Math.floor(currentTime / imageDuration) % totalImages;
+                
+                // Atualizar apenas se a imagem mudou
+                if (activeImageIndex !== currentPhotoIndex) {
+                    currentPhotoIndex = activeImageIndex;
+                    
+                    // Remover classe active de todas as fotos
+                    photoFrames.forEach(frame => {
+                        frame.classList.remove('active');
+                    });
+                    
+                    // Adicionar classe active à foto atual
+                    if (photoFrames[currentPhotoIndex]) {
+                        photoFrames[currentPhotoIndex].classList.add('active');
+                    }
+                }
+                
+            }, 100); // Atualizar a cada 100ms
             
-            // Configurar timeout para finalizar o loader após 10 segundos
+            // Configurar timeout para finalizar o loader após 20 segundos
             loaderTimeout = setTimeout(() => {
                 stopPhotoSlideshow();
                 goToFinalQuestion();
-            }, 10000); // 10 segundos
+            }, totalDuration);
         }
         
         // Parar o slideshow
@@ -2024,26 +2061,21 @@
         
         // Ir para a pergunta final após o loader
         function goToFinalQuestion() {
-            // Esconder loader
             if (photoLoader) photoLoader.classList.remove('active');
             
-            // Atualizar passo atual
-            currentStep = 9; // Passo 10 (índice 9)
+            currentStep = 9;
             
-            // Mostrar passo final
             const step10 = document.getElementById('step10');
             if (step10) {
                 step10.classList.add('active');
             }
             
-            // Atualizar barra de progresso
             updateProgress();
             
-            // Rolar para o topo
             document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
         }
         
-        // Validação por etapa - CORRIGIDA
+        // Validação por etapa
         function validateStep(stepIndex) {
             let isValid = true;
             
@@ -2207,12 +2239,9 @@
                         hideError('emailError');
                     }
                     
-                    // O campo de nomes dos filhos é opcional, então não precisa de validação
-                    
                     break;
                     
                 case 8:
-                    // O loader não precisa de validação
                     break;
                     
                 case 9:
@@ -2235,74 +2264,59 @@
                     return;
                 }
                 
-                // Se estamos indo para o passo 8 (loader de fotos)
                 if (currentStep === 7) {
-                    // Esconder passo atual
                     steps[currentStep].classList.remove('active');
                     
-                    // Atualizar passo atual
                     currentStep = 8;
                     
-                    // Mostrar loader
                     if (photoLoader) {
                         photoLoader.classList.add('active');
                         
-                        // Iniciar slideshow
                         setTimeout(() => {
                             startPhotoSlideshow();
                         }, 100);
                     }
                     
-                    // Atualizar barra de progresso
                     updateProgress();
                     
-                    // Rolar para o topo
                     document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
                     return;
                 }
                 
-                // Para outros passos
                 steps[currentStep].classList.remove('active');
                 currentStep++;
                 steps[currentStep].classList.add('active');
                 updateProgress();
                 
-                // Rolar para o topo
                 document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
             }
         }
         
         // Voltar ao passo anterior
         function goToPrevStep() {
-            // Parar o slideshow se estiver ativo
             stopPhotoSlideshow();
             
             if (currentStep > 0) {
-                // Se estamos no passo 9 (pergunta final)
                 if (currentStep === 9) {
-                    // Esconder passo atual
                     steps[currentStep].classList.remove('active');
                     
-                    // Voltar para o loader
                     currentStep = 8;
                     if (photoLoader) photoLoader.classList.add('active');
                     
-                    // Atualizar barra de progresso
                     updateProgress();
+                    
+                    setTimeout(() => {
+                        startPhotoSlideshow();
+                    }, 100);
                 }
-                // Se estamos no loader (passo 8)
                 else if (currentStep === 8) {
-                    // Esconder loader
                     if (photoLoader) photoLoader.classList.remove('active');
                     
-                    // Voltar para passo anterior
                     currentStep = 7;
                     steps[currentStep].classList.add('active');
                     
-                    // Atualizar barra de progresso
                     updateProgress();
                 }
-                // Para outros passos
                 else {
                     steps[currentStep].classList.remove('active');
                     currentStep--;
@@ -2310,7 +2324,6 @@
                     updateProgress();
                 }
                 
-                // Rolar para o topo
                 document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
             }
         }
@@ -2321,7 +2334,8 @@
                 return;
             }
             
-            // Simular envio (em um caso real, enviaria para um servidor)
+            stopPhotoSlideshow();
+            
             console.log('=== DADOS DO FORMULÁRIO ===');
             console.log('Nome:', document.getElementById('name').value);
             console.log('Data de nascimento:', document.getElementById('birthdate').value);
@@ -2350,7 +2364,6 @@
             console.log('Resposta especial:', specialAnswer === 'yes' ? 'SIM' : 'NÃO');
             console.log('======================');
             
-            // Mostrar mensagem de conclusão
             steps.forEach(step => {
                 step.classList.remove('active');
             });
@@ -2360,7 +2373,6 @@
             completionMessage.style.display = 'block';
             progressFill.style.width = '100%';
             
-            // Rolar para o topo
             document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
         }
         
